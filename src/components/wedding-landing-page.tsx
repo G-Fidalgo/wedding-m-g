@@ -3,9 +3,20 @@
 import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Clock, Bus, ChevronDown, Check } from "lucide-react"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { ChevronDown, MapPin, Clock, Bus, Check } from 'lucide-react';
+import { BankAccountComponent } from './bank-account';
 
 export function WeddingLandingPageComponent() {
   const [isSticky, setIsSticky] = useState(false)
@@ -83,8 +94,8 @@ export function WeddingLandingPageComponent() {
       {/* Sticky Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isSticky ? 'bg-white shadow-md' : 'bg-transparent'}`}>
         <div className="container mx-auto py-4 px-6 flex justify-between items-center">
-          <h1 className={`text-2xl font-bold ${isSticky ? 'text-gray-800' : 'text-white'}`}>María & Gonzalo</h1>
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <h1 className={`text-2xl font-bold ${isSticky ? 'text-gray-800' : 'text-black'}`}>¡Nos casamos!</h1>
+          <Button size="lg" variant="link" className={`rounded-md ${isSticky ? 'bg-transparent text-black border-2 border-black hover:bg-black hover:text-white' : 'bg-primary text-primary-foreground hover:bg-primary/90'}`}>
             Confirmar asistencia
           </Button>
         </div>
@@ -93,11 +104,7 @@ export function WeddingLandingPageComponent() {
       {/* Hero Section */}
       <section id="hero-section" className="relative h-screen flex items-center justify-center text-center text-white">
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center"></div>
-        <div className="relative z-10">
-          <h1 className="text-6xl font-bold mb-4">María & Gonzalo</h1>
-          <p className="text-2xl">¡Nos casamos!</p>
-        </div>
+        <div  className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('/src/assets/hero.jpg')` }}></div>
         <button 
           onClick={scrollToNextSection}
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer focus:outline-none"
@@ -131,20 +138,89 @@ export function WeddingLandingPageComponent() {
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Previsión del tiempo</h2>
           <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={weatherData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="temperature" stroke="#8884d8" name="Temperatura (°C)" />
-                <Line yAxisId="right" type="monotone" dataKey="precipitation" stroke="#82ca9d" name="Precipitaciones (mm)" />
-                <Line yAxisId="right" type="monotone" dataKey="sunHours" stroke="#ffc658" name="Horas de sol" />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          <ResponsiveContainer width="100%" height={400}>
+    <AreaChart data={weatherData}>
+      <defs>
+        <linearGradient id="colorTemperature" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#BE3144" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#BE3144" stopOpacity={0} />
+        </linearGradient>
+        <linearGradient id="colorPrecipitation" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#03346E" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#03346E" stopOpacity={0} />
+        </linearGradient>
+        <linearGradient id="colorSunHours" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#C69749" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#C69749" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="time" />
+      <YAxis yAxisId="left" />
+      <YAxis yAxisId="right" orientation="right" />
+      <Tooltip />
+      <Legend />
+      
+      {/* Áreas Rellenadas */}
+      <Area
+        yAxisId="left"
+        type="monotone"
+        dataKey="temperature"
+        stroke="#BE3144"
+        fill="url(#colorTemperature)"
+        name="Temperatura (°C)"
+      />
+      <Area
+        yAxisId="right"
+        type="monotone"
+        dataKey="precipitation"
+        stroke="#03346E"
+        fill="url(#colorPrecipitation)"
+        name="Precipitaciones (mm)"
+      />
+      <Area
+        yAxisId="right"
+        type="monotone"
+        dataKey="sunHours"
+        stroke="#C69749"
+        fill="url(#colorSunHours)"
+        name="Horas de sol"
+      />
+
+      {/* Opcional: Líneas Sobre las Áreas */}
+      <Line
+        yAxisId="left"
+        type="monotone"
+        dataKey="temperature"
+        stroke="#8884d8"
+        strokeWidth={2}
+        dot={{ r: 3 }}
+        activeDot={{ r: 5 }}
+        name="Temperatura (°C)"
+      />
+      <Line
+        yAxisId="right"
+        type="monotone"
+        dataKey="precipitation"
+        stroke="#82ca9d"
+        strokeWidth={2}
+        dot={{ r: 3 }}
+        activeDot={{ r: 5 }}
+        name="Precipitaciones (mm)"
+      />
+      <Line
+        yAxisId="right"
+        type="monotone"
+        dataKey="sunHours"
+        stroke="#ffc658"
+        strokeWidth={2}
+        dot={{ r: 3 }}
+        activeDot={{ r: 5 }}
+        name="Horas de sol"
+      />
+    </AreaChart>
+  </ResponsiveContainer>
+        </div>
         </div>
       </section>
 
@@ -308,19 +384,7 @@ export function WeddingLandingPageComponent() {
 
       {/* Bank Account Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Cuenta Bancaria</h2>
-          <Card className="max-w-md mx-auto">
-            <CardHeader>
-              <CardTitle>Para regalos monetarios</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="mb-2">Si prefieres hacer un regalo en efectivo, puedes utilizar la siguiente cuenta bancaria:</p>
-              <p className="font-bold">ES12 3456 7890 1234 5678 9012</p>
-              <p className="mt-2">Titular: María Maggioni Martínez y Gonzalo Fidalgo Martínez-Merello</p>
-            </CardContent>
-          </Card>
-        </div>
+        <BankAccountComponent/>
       </section>
     </div>
   )
