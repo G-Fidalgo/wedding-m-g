@@ -25,8 +25,8 @@ import { ChevronDown, MapPin, Bus, Check } from "lucide-react";
 import { BankAccountComponent } from "./bank-account";
 
 export function WeddingLandingPageComponent() {
-  const refCountDownSection = useRef(null);
-  const refChevron = useRef(null);
+  const refCountDownSection = useRef<HTMLDivElement | null>(null);
+  const refChevron = useRef<HTMLButtonElement | null>(null);
   const [isSticky, setIsSticky] = useState(false);
   const [countdown, setCountdown] = useState({
     days: 0,
