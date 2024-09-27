@@ -23,13 +23,11 @@ export function BankAccountComponent() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8">Bank Account</h2>
+        <h2 className="text-3xl font-bold mb-8">Lista de bodas</h2>
+        <p className="mb-2">Nos hace muy felices celebrar nuestro amor con vosotros. Si queréis ayudarnos en nuestra nueva etapa, os dejamos esta opción :</p>
         <Card className="max-w-md mx-auto">
-          <CardHeader>
-            <CardTitle>For monetary gifts</CardTitle>
-          </CardHeader>
           <CardContent>
-            <p className="mb-2">If you prefer to make a cash gift, you can use the following bank account:</p>
+          <p className="mb-2">Número de cuenta:</p>
             <div className="flex items-center justify-center space-x-2 mb-4">
               <p className="font-bold">{accountNumber}</p>
               <Button 
@@ -42,9 +40,9 @@ export function BankAccountComponent() {
               </Button>
             </div>
             <div className="flex flex-col items-center space-y-2">
-              <p className="font-semibold">Account Holders:</p>
+              <p className="">Titulares de la cuenta:</p>
               <div className="flex items-center justify-center space-x-2">
-                <p>{accountHolders}</p>
+                <p className='font-semibold'>{accountHolders}</p>
                 <Button 
                   size="icon" 
                   variant="destructive" 

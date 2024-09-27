@@ -61,19 +61,19 @@ export function WeddingLandingPageComponent() {
   ]
 
   const weatherData = [
-    { time: '00:00', temperature: 10, precipitation: 0.1, sunHours: 0 },
-    { time: '02:00', temperature: 9, precipitation: 0.1, sunHours: 0 },
-    { time: '04:00', temperature: 8, precipitation: 0.1, sunHours: 0 },
-    { time: '06:00', temperature: 8, precipitation: 0.1, sunHours: 0 },
-    { time: '08:00', temperature: 11, precipitation: 0.1, sunHours: 1 },
-    { time: '10:00', temperature: 15, precipitation: 0.1, sunHours: 2 },
-    { time: '12:00', temperature: 18, precipitation: 0.1, sunHours: 3 },
-    { time: '14:00', temperature: 20, precipitation: 0.1, sunHours: 3 },
-    { time: '16:00', temperature: 22, precipitation: 0.1, sunHours: 3 },
-    { time: '18:00', temperature: 20, precipitation: 0.1, sunHours: 2.5 },
-    { time: '20:00', temperature: 17, precipitation: 0.1, sunHours: 1 },
-    { time: '22:00', temperature: 13, precipitation: 0.1, sunHours: 0 },
-];
+    { time: '00:00', temperature: 10, precipitation: 0, sunHours: 0 },
+    { time: '02:00', temperature: 9, precipitation: 0, sunHours: 0 },
+    { time: '04:00', temperature: 9, precipitation: 0, sunHours: 0 },
+    { time: '06:00', temperature: 10, precipitation: 0, sunHours: 1 },
+    { time: '08:00', temperature: 13, precipitation: 0, sunHours: 2 },
+    { time: '10:00', temperature: 16, precipitation: 0, sunHours: 3 },
+    { time: '12:00', temperature: 18, precipitation: 0, sunHours: 4 },
+    { time: '14:00', temperature: 21, precipitation: 0, sunHours: 4 },
+    { time: '16:00', temperature: 22, precipitation: 0, sunHours: 4 },
+    { time: '18:00', temperature: 21, precipitation: 0, sunHours: 3 },
+    { time: '20:00', temperature: 18, precipitation: 0, sunHours: 2 },
+    { time: '22:00', temperature: 15, precipitation: 0, sunHours: 0 },
+  ];
 
 
   const scrollToNextSection = () => {
@@ -133,10 +133,43 @@ export function WeddingLandingPageComponent() {
         </div>
       </section>
 
+      <section className="py-16 bg-white">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center">Info de nuestro día</h2>
+          <div className="flex flex-col items-center space-y-8">
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-center">
+                  <MapPin className="mr-2" /> Ceremonia
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p>Real Monasterio de Santa María de El Paular</p>
+                <p>Rascafría, M-604</p>
+                <p>17:30 horas</p>
+              </CardContent>
+            </Card>
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-center">
+                  <MapPin className="mr-2" /> Celebración
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-center">
+                <p>Finca El Robledo</p>
+                <p>Carretera, M-611, Km 30, 200, 28740 Rascafría</p>
+                <p>19:30 horas</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Weather Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Previsión del tiempo</h2>
+          <p>¡Ojo! No pusieron el nombre de Rascafría de manera aleatoria, os dejamos por aquí la temperatura media</p>
           <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height={400}>
     <AreaChart data={weatherData}>
@@ -224,43 +257,11 @@ export function WeddingLandingPageComponent() {
         </div>
       </section>
 
-      {/* Event Information Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Información del evento</h2>
-          <div className="flex flex-col items-center space-y-8">
-            <Card className="w-full max-w-md">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-center">
-                  <MapPin className="mr-2" /> Ceremonia
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p>Real Monasterio de Santa María de El Paular</p>
-                <p>Rascafría, M-604</p>
-                <p>17:30 horas</p>
-              </CardContent>
-            </Card>
-            <Card className="w-full max-w-md">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-center">
-                  <MapPin className="mr-2" /> Celebración
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p>Finca el robledo</p>
-                <p>Carretera, M-611, Km 30, 200, 28740 Rascafría</p>
-                <p>19:30 horas</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Map Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Ubicaciones</h2>
+          <p>Os dejamos sitios de interés de Rascafría</p>
           <div className="aspect-w-16 aspect-h-9">
             <img src="/placeholder.svg?height=450&width=800" alt="Mapa de ubicaciones" className="w-full h-full object-cover rounded-lg" />
           </div>
@@ -275,45 +276,6 @@ export function WeddingLandingPageComponent() {
             <Card className="w-full max-w-md">
               <CardHeader>
                 <CardTitle className="flex items-center justify-center">
-                  <Clock className="mr-2" /> Horario del evento
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <Clock className="mr-4" />
-                    <div>
-                      <p className="font-bold">17:30</p>
-                      <p>Ceremonia</p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <Clock className="mr-4" />
-                    <div>
-                      <p className="font-bold">20:00</p>
-                      <p>Cóctel de bienvenida</p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <Clock className="mr-4" />
-                    <div>
-                      <p className="font-bold">21:30</p>
-                      <p>Cena</p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <Clock className="mr-4" />
-                    <div>
-                      <p className="font-bold">23:30</p>
-                      <p>Baile</p>
-                    </div>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="w-full max-w-md">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-center">
                   <Bus className="mr-2" /> Horario de autobuses
                 </CardTitle>
               </CardHeader>
@@ -322,15 +284,8 @@ export function WeddingLandingPageComponent() {
                   <li className="flex items-center">
                     <Bus className="mr-4" />
                     <div>
-                      <p className="font-bold">17:30</p>
-                      <p>Salida desde Plaza Mayor</p>
-                    </div>
-                  </li>
-                  <li className="flex items-center">
-                    <Bus className="mr-4" />
-                    <div>
-                      <p className="font-bold">19:30</p>
-                      <p>Salida desde la Iglesia a la Finca</p>
+                      <p className="font-bold">16:15</p>
+                      <p>Salida desde Plaza de Colón</p>
                     </div>
                   </li>
                   <li className="flex items-center">
@@ -343,7 +298,7 @@ export function WeddingLandingPageComponent() {
                   <li className="flex items-center">
                     <Bus className="mr-4" />
                     <div>
-                      <p className="font-bold">03:00</p>
+                      <p className="font-bold">04:30</p>
                       <p>Última salida de vuelta</p>
                     </div>
                   </li>
@@ -354,11 +309,17 @@ export function WeddingLandingPageComponent() {
         </div>
       </section>
 
+      {/* Bank Account Section */}
+      <section className="py-16 bg-white">
+        <BankAccountComponent/>
+      </section>
+
       {/* Gifts Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Lista de Regalos</h2>
           <Carousel className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
+          <p>Si preferís hacernos un regalo, hemos preparado una lista con algunas ideas que nos hacen ilusión</p>
+          <p>Al confirmar vuestra asistencia podrás reservar el regalo</p>
             <CarouselContent>
               {gifts.map((gift) => (
                 <CarouselItem key={gift.id} className="md:basis-1/2 lg:basis-1/3">
@@ -380,11 +341,6 @@ export function WeddingLandingPageComponent() {
             <CarouselNext />
           </Carousel>
         </div>
-      </section>
-
-      {/* Bank Account Section */}
-      <section className="py-16 bg-white">
-        <BankAccountComponent/>
       </section>
     </div>
   )
