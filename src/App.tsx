@@ -1,4 +1,4 @@
-import { WeddingLandingPageComponent } from "./components/wedding-landing-page"
+import { WeddingLandingPageComponent } from "./components/WeddingLandingPageComponent"
 
 function App() {
   return (
