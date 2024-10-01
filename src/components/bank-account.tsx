@@ -43,22 +43,24 @@ export function BankAccountComponent() {
         </p>
         <Card className="max-w-md mx-auto">
           <CardContent>
-            <p className="mb-2">Número de cuenta:</p>
-            <div className="flex items-center justify-between gap-2 mb-4">
-              <p className="font-bold">{accountNumber}</p>
-              <Button
-                size="icon"
-                variant="outline"
-                onClick={() => copyToClipboard(accountNumber, "accountNumber")}
-                aria-label="Copy account number"
-                className="size-6 grid place-content-center p-4"
-              >
-                {copied.accountNumber ? (
-                  <CheckIcon className="h-4 w-4" />
-                ) : (
-                  <CopyIcon className="h-4 w-4" />
-                )}
-              </Button>
+            <div className="flex flex-col items-center space-y-2 mb-4">
+              <p className="mb-2">Número de cuenta:</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="font-semibold text-pretty">{accountNumber}</p>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  onClick={() => copyToClipboard(accountNumber, "accountNumber")}
+                  aria-label="Copy account number"
+                  className="size-6 grid place-content-center p-4"
+                >
+                  {copied.accountNumber ? (
+                    <CheckIcon className="h-4 w-4" />
+                  ) : (
+                    <CopyIcon className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </div>
             <div className="flex flex-col items-center space-y-2">
               <p className="">Titulares de la cuenta:</p>

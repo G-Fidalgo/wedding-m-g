@@ -10,7 +10,6 @@ import { HeaderComponent } from "./sections/HeaderComponent";
 
 export function WeddingLandingPageComponent() {
   const refCountDownSection = useRef<HTMLDivElement | null>(null);
-  const refHeroSection = useRef<HTMLDivElement | null>(null);
   const refChevron = useRef<HTMLButtonElement | null>(null);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const weddingDate = new Date("2025-06-21T17:30:00");
@@ -57,37 +56,37 @@ export function WeddingLandingPageComponent() {
     {
       id: 1,
       title: "Set de Cocina",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: false,
     },
     {
       id: 2,
       title: "Viaje a París",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: true,
     },
     {
       id: 3,
       title: "Juego de Sábanas",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: false,
     },
     {
       id: 4,
       title: "Cena Romántica",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: false,
     },
     {
       id: 5,
       title: "Vajilla Completa",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: true,
     },
     {
       id: 6,
       title: "Curso de Cocina",
-      image: "/placeholder.svg?height=200&width=300",
+      image: "https://binamehta.com/wp-content/uploads/image-placeholder-300x200.png?height=200&width=300",
       reserved: false,
     },
   ];
@@ -110,7 +109,7 @@ export function WeddingLandingPageComponent() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <HeaderComponent isSticky={isSticky} />
+      <HeaderComponent isSticky={isSticky}/>
       
       <HeroSection scrollToNextSection={scrollToNextSection}
        refChevronSection={refChevron} />
@@ -125,11 +124,12 @@ export function WeddingLandingPageComponent() {
 
       <BusInfoSection/>
 
-      <section className="py-16 bg-white">
+      <section className="bg-white">
         <BankAccountComponent />
+        <GiftsSection gifts={gifts} />
       </section>
 
-      <GiftsSection gifts={gifts} />
+      
     </div>
   );
 }

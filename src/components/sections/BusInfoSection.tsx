@@ -7,6 +7,11 @@ export const BusInfoSection = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center">Horarios</h2>
           <div className="flex flex-col items-center space-y-8">
+            <a 
+              href="https://maps.app.goo.gl/HnfU5kejkZTFd4PBA" 
+              target="_blank"
+              rel="noopener noreferrer"
+            >
             <Card className="w-full max-w-md">
               <CardHeader>
                 <CardTitle className="flex items-center justify-center">
@@ -39,6 +44,7 @@ export const BusInfoSection = () => {
                 </ul>
               </CardContent>
             </Card>
+            </a>
           </div>
         </div>
         </section>

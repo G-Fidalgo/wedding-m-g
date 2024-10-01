@@ -4,8 +4,8 @@ import { Check } from "lucide-react";
 
 export const GiftsSection = ({ gifts }: { gifts: any[] }) => {
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto">
+    <section className="bg-gray-100">
+      <div className="container mx-auto text-center">
         <p className="text-pretty mb-4 px-4">Si preferís hacernos un regalo, hemos preparado una lista con algunas ideas que nos hacen ilusión</p>
         <Carousel className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto">
           <CarouselContent>

@@ -7,6 +7,11 @@ export const WeddingInfoSection = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-center">Info de nuestro día</h2>
         <div className="flex flex-col items-center space-y-8">
+          <a
+              href="https://maps.app.goo.gl/YCfABzBMTWuYuS969"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
           <Card className="w-full max-w-md">
             <CardHeader>
               <CardTitle className="flex items-center justify-center">
@@ -19,6 +24,12 @@ export const WeddingInfoSection = () => {
               <p>17:30 horas</p>
             </CardContent>
           </Card>
+          </a>
+          <a
+              href="https://maps.app.goo.gl/4krmsGUdvvzqmVMS9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
           <Card className="w-full max-w-md">
             <CardHeader>
               <CardTitle className="flex items-center justify-center">
@@ -30,7 +41,9 @@ export const WeddingInfoSection = () => {
               <p>Carretera, M-611, Km 30, 200, 28740 Rascafría</p>
               <p>19:30 horas</p>
             </CardContent>
+            
           </Card>
+          </a>
         </div>
       </div>
     </section>
