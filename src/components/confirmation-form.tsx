@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { X, Plus, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import { useState, useEffect } from 'react';
+import { X, Plus, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
 
 interface Attendee {
   name: string;
@@ -26,17 +26,17 @@ export default function ConfirmationForm({
   onClose: () => void;
 }) {
   const [attendees, setAttendees] = useState<Attendee[]>([
-    { name: "", foodIntolerances: "", allergies: "", usesBusService: false },
+    { name: '', foodIntolerances: '', allergies: '', usesBusService: false },
   ]);
   const [songs, setSongs] = useState<Song[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Song[]>([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showErrorCallout, setShowErrorCallout] = useState(false);
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, []);
 
@@ -44,11 +44,11 @@ export default function ConfirmationForm({
     if (searchQuery) {
       // Simular búsqueda en Spotify (reemplazar con API real)
       const fakeResults = [
-        { id: "1", name: "Canción 1", artist: "Artista 1" },
-        { id: "2", name: "Canción 2", artist: "Artista 2" },
-        { id: "3", name: "Canción 3", artist: "Artista 3" },
-        { id: "4", name: "Canción 4", artist: "Artista 4" },
-        { id: "5", name: "Canción 5", artist: "Artista 5" },
+        { id: '1', name: 'Canción 1', artist: 'Artista 1' },
+        { id: '2', name: 'Canción 2', artist: 'Artista 2' },
+        { id: '3', name: 'Canción 3', artist: 'Artista 3' },
+        { id: '4', name: 'Canción 4', artist: 'Artista 4' },
+        { id: '5', name: 'Canción 5', artist: 'Artista 5' },
       ];
       setSearchResults(fakeResults);
     } else {
@@ -61,9 +61,9 @@ export default function ConfirmationForm({
       setAttendees([
         ...attendees,
         {
-          name: "",
-          foodIntolerances: "",
-          allergies: "",
+          name: '',
+          foodIntolerances: '',
+          allergies: '',
           usesBusService: false,
         },
       ]);
@@ -88,7 +88,7 @@ export default function ConfirmationForm({
   const addSong = (song: Song) => {
     if (songs.length < 5) {
       setSongs([...songs, song]);
-      setSearchQuery("");
+      setSearchQuery('');
       setSearchResults([]);
     }
   };
@@ -100,18 +100,18 @@ export default function ConfirmationForm({
   const handleConfirmAttendance = () => {
     setIsFormSubmitted(true);
     const allNamesFilledOut = attendees.every(
-      (attendee) => attendee.name.trim() !== ""
+      (attendee) => attendee.name.trim() !== ''
     );
     if (!allNamesFilledOut) {
       setShowErrorCallout(true);
       return;
     }
     // Aquí iría la lógica para enviar la confirmación
-    console.log("Confirmación enviada", attendees, songs);
+    console.log('Confirmación enviada', attendees, songs);
   };
 
   const areAllNamesFilled = () =>
-    attendees.every((attendee) => attendee.name.trim() !== "");
+    attendees.every((attendee) => attendee.name.trim() !== '');
 
   if (!isOpen) return null;
 
@@ -149,7 +149,7 @@ export default function ConfirmationForm({
                   placeholder="Nombre y Apellidos"
                   value={attendee.name}
                   onChange={(e) =>
-                    updateAttendee(index, "name", e.target.value)
+                    updateAttendee(index, 'name', e.target.value)
                   }
                   className="mb-2"
                   required
@@ -158,7 +158,7 @@ export default function ConfirmationForm({
                   placeholder="Intolerancias Alimenticias"
                   value={attendee.foodIntolerances}
                   onChange={(e) =>
-                    updateAttendee(index, "foodIntolerances", e.target.value)
+                    updateAttendee(index, 'foodIntolerances', e.target.value)
                   }
                   className="mb-2"
                 />
@@ -166,7 +166,7 @@ export default function ConfirmationForm({
                   placeholder="Alergias"
                   value={attendee.allergies}
                   onChange={(e) =>
-                    updateAttendee(index, "allergies", e.target.value)
+                    updateAttendee(index, 'allergies', e.target.value)
                   }
                   className="mb-2"
                 />
@@ -174,12 +174,12 @@ export default function ConfirmationForm({
                   <Switch
                     checked={attendee.usesBusService}
                     onCheckedChange={(checked) =>
-                      updateAttendee(index, "usesBusService", checked)
+                      updateAttendee(index, 'usesBusService', checked)
                     }
                     className={
                       attendee.usesBusService
-                        ? "data-[state=checked]:bg-[#17B169]"
-                        : "data-[state=unchecked]:bg-[#fd5c63]"
+                        ? 'data-[state=checked]:bg-[#17B169]'
+                        : 'data-[state=unchecked]:bg-[#fd5c63]'
                     }
                   />
                   <span className="ml-2 text-sm text-gray-600">

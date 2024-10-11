@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React, { useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -9,26 +9,26 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel";
+} from '@/components/ui/carousel';
 
 type WeatherCondition =
-  | "sunrise"
-  | "sunset"
-  | "sunny"
-  | "partlySunny"
-  | "fog"
-  | "haze"
-  | "cloudy"
-  | "rain"
-  | "drizzle"
-  | "heavyRain"
-  | "thunderBolt"
-  | "snow"
-  | "scatteredSnow"
-  | "sleet"
-  | "clearNight"
-  | "partlyCloudyNight"
-  | "nightDrizzle";
+  | 'sunrise'
+  | 'sunset'
+  | 'sunny'
+  | 'partlySunny'
+  | 'fog'
+  | 'haze'
+  | 'cloudy'
+  | 'rain'
+  | 'drizzle'
+  | 'heavyRain'
+  | 'thunderBolt'
+  | 'snow'
+  | 'scatteredSnow'
+  | 'sleet'
+  | 'clearNight'
+  | 'partlyCloudyNight'
+  | 'nightDrizzle';
 
 export interface WeatherData {
   time: string;
@@ -106,7 +106,7 @@ export const WeatherCarousel: React.FC<{ weatherData: WeatherData[] }> = ({
 
       <Carousel
         opts={{
-          align: "start",
+          align: 'start',
           loop: true,
         }}
         setApi={setApi}

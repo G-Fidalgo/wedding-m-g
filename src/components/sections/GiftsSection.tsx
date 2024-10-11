@@ -4,9 +4,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+} from '@/components/ui/carousel';
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { Check } from 'lucide-react';
 
 export const GiftsSection = ({ gifts }: { gifts: any[] }) => {
   return (

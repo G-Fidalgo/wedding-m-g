@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bus, MapPin } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Bus, MapPin } from 'lucide-react';
 
 export const WeddingInfoSection = () => {
   return (

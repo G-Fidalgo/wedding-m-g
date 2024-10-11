@@ -5,6 +5,7 @@ Este es un proyecto de landing page para la gestión de una boda. El proyecto es
 ## Instalación y Ejecución
 
 ### Requisitos previos
+
 - **Node.js** (versión 14 o superior)
 - **npm** o **yarn**
 
@@ -20,10 +21,10 @@ Este es un proyecto de landing page para la gestión de una boda. El proyecto es
 
    ```bash
    npm install
-   ```  
+   ```
 
 3. Arranca el proyecto:
 
    ```bash
    npm run dev
-   ```  
+   ```

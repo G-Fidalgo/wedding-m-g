@@ -1,9 +1,7 @@
-import { WeddingLandingPageComponent } from "./components/WeddingLandingPageComponent"
+import { WeddingLandingPageComponent } from './components/WeddingLandingPageComponent';
 
 function App() {
-  return (
-    <WeddingLandingPageComponent/>
-  )
+  return <WeddingLandingPageComponent />;
 }
 
-export default App
+export default App;

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CopyIcon, CheckIcon } from "lucide-react";
+import { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { CopyIcon, CheckIcon } from 'lucide-react';
 
 export function BankAccountComponent() {
   const [copied, setCopied] = useState({
@@ -11,13 +11,13 @@ export function BankAccountComponent() {
     accountHolders: false,
   });
 
-  const accountNumber = "ES12 3456 7890 1234 5678 9012";
+  const accountNumber = 'ES12 3456 7890 1234 5678 9012';
   const accountHolders =
-    "María Maggioni Martínez Gonzalo Fidalgo Martínez-Merello";
+    'María Maggioni Martínez Gonzalo Fidalgo Martínez-Merello';
 
   const copyToClipboard = (
     text: string,
-    type: "accountNumber" | "accountHolders"
+    type: 'accountNumber' | 'accountHolders'
   ) => {
     navigator.clipboard
       .writeText(text)
@@ -29,7 +29,7 @@ export function BankAccountComponent() {
         );
       })
       .catch((err) => {
-        console.error("Error copying to clipboard: ", err);
+        console.error('Error copying to clipboard: ', err);
       });
   };
 
@@ -51,7 +51,7 @@ export function BankAccountComponent() {
                   size="icon"
                   variant="outline"
                   onClick={() =>
-                    copyToClipboard(accountNumber, "accountNumber")
+                    copyToClipboard(accountNumber, 'accountNumber')
                   }
                   aria-label="Copy account number"
                   className="size-6 grid place-content-center p-4"
@@ -73,7 +73,7 @@ export function BankAccountComponent() {
                   variant="outline"
                   className="size-6 grid place-content-center p-4"
                   onClick={() =>
-                    copyToClipboard(accountHolders, "accountHolders")
+                    copyToClipboard(accountHolders, 'accountHolders')
                   }
                   aria-label="Copy account holders' names"
                 >
