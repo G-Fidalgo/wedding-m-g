@@ -34,7 +34,7 @@ export function BankAccountComponent() {
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white px-4">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">Lista de bodas</h2>
         <p className="mb-2">
@@ -50,7 +50,9 @@ export function BankAccountComponent() {
                 <Button
                   size="icon"
                   variant="outline"
-                  onClick={() => copyToClipboard(accountNumber, "accountNumber")}
+                  onClick={() =>
+                    copyToClipboard(accountNumber, "accountNumber")
+                  }
                   aria-label="Copy account number"
                   className="size-6 grid place-content-center p-4"
                 >
