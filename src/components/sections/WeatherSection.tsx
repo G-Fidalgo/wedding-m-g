@@ -1,113 +1,136 @@
-import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
+"use client";
 
-export const WeatherSection = ({ weatherData }: { weatherData: any }) => {
+import React, { useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
+
+type WeatherCondition =
+  | "sunrise"
+  | "sunset"
+  | "sunny"
+  | "partlySunny"
+  | "fog"
+  | "haze"
+  | "cloudy"
+  | "rain"
+  | "drizzle"
+  | "heavyRain"
+  | "thunderBolt"
+  | "snow"
+  | "scatteredSnow"
+  | "sleet"
+  | "clearNight"
+  | "partlyCloudyNight"
+  | "nightDrizzle";
+
+export interface WeatherData {
+  time: string;
+  temperature: number | null;
+  condition: WeatherCondition;
+}
+
+interface WeatherCardProps {
+  data: WeatherData;
+}
+
+const WeatherIcon: React.FC<{ condition: WeatherCondition }> = ({
+  condition,
+}) => {
+  const icons: Record<WeatherCondition, string> = {
+    sunrise: `src/assets/weather-icons/sunrise.png`,
+    sunset: `src/assets/weather-icons/sunset.png`,
+    sunny: `src/assets/weather-icons/sunny.png`,
+    partlySunny: `src/assets/weather-icons/partlySunny.png`,
+    cloudy: `src/assets/weather-icons/cloudy.png`,
+    haze: `src/assets/weather-icons/haze.png`,
+    fog: `src/assets/weather-icons/fog.png`,
+    drizzle: `src/assets/weather-icons/drizzle.png`,
+    rain: `src/assets/weather-icons/rain.png`,
+    heavyRain: `src/assets/weather-icons/heavyRain.png`,
+    thunderBolt: `src/assets/weather-icons/thunderBolt.png`,
+    snow: `src/assets/weather-icons/snow.png`,
+    scatteredSnow: `src/assets/weather-icons/scatteredSnow.png`,
+    sleet: `src/assets/weather-icons/sleet.png`,
+    clearNight: `src/assets/weather-icons/clearNight.png`,
+    partlyCloudyNight: `src/assets/weather-icons/partlyCloudyNight.png`,
+    nightDrizzle: `src/assets/weather-icons/nightDrizzle.png`,
+  };
+
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8">Previsión del tiempo</h2>
-        <div className="h-80 w-full">
-        <ResponsiveContainer width="100%" height={400}>
-              <AreaChart data={weatherData}>
-                <defs>
-                  <linearGradient
-                    id="colorTemperature"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#BE3144" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#BE3144" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient
-                    id="colorPrecipitation"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#03346E" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#03346E" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient
-                    id="colorSunHours"
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="1"
-                  >
-                    <stop offset="5%" stopColor="#C69749" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="#C69749" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis yAxisId="left" />
-                <YAxis yAxisId="right" orientation="right" />
-                <Tooltip />
-                <Legend />
-
-                {/* Áreas Rellenadas */}
-                <Area
-                  yAxisId="left"
-                  type="monotone"
-                  dataKey="temperature"
-                  stroke="#BE3144"
-                  fill="url(#colorTemperature)"
-                  name="Temperatura (°C)"
-                />
-                <Area
-                  yAxisId="right"
-                  type="monotone"
-                  dataKey="precipitation"
-                  stroke="#03346E"
-                  fill="url(#colorPrecipitation)"
-                  name="Precipitaciones (mm)"
-                />
-                <Area
-                  yAxisId="right"
-                  type="monotone"
-                  dataKey="sunHours"
-                  stroke="#C69749"
-                  fill="url(#colorSunHours)"
-                  name="Horas de sol"
-                />
-
-                {/* Opcional: Líneas Sobre las Áreas */}
-                <Line
-                  yAxisId="left"
-                  type="monotone"
-                  dataKey="temperature"
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
-                  name="Temperatura (°C)"
-                />
-                <Line
-                  yAxisId="right"
-                  type="monotone"
-                  dataKey="precipitation"
-                  stroke="#82ca9d"
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
-                  name="Precipitaciones (mm)"
-                />
-                <Line
-                  yAxisId="right"
-                  type="monotone"
-                  dataKey="sunHours"
-                  stroke="#ffc658"
-                  strokeWidth={2}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
-                  name="Horas de sol"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-        </div>
-      </div>
-    </section>
+    <img
+      src={icons[condition]}
+      alt={condition}
+      width={48}
+      height={48}
+      className="w-12 h-12"
+    />
   );
 };
+
+const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
+  return (
+    <Card className="w-full h-full bg-transparent border-none shadow-none">
+      <CardContent className="flex flex-col items-center justify-center h-full p-2">
+        <div className="text-lg font-bold">{data.time}</div>
+        <WeatherIcon condition={data.condition} />
+        <div className="text-2xl font-bold mt-2">{data.temperature}°C</div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export const WeatherCarousel: React.FC<{ weatherData: WeatherData[] }> = ({
+  weatherData,
+}) => {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const initialSlide = 19 % weatherData.length;
+
+  useEffect(() => {
+    if (!api) return;
+    api.scrollTo(initialSlide);
+  }, [api, initialSlide]);
+
+  return (
+    <div className="w-4/5 mx-auto relative py-4 ">
+      <div className="py-4 text-center border-b border-gray-200">
+        <h2 className="text-3xl font-bold mb-8 ">Previsión del tiempo</h2>
+        <p>No le pusieron el nombre de Rascafría de manera aleatoria 😏 </p>
+      </div>
+
+      <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        setApi={setApi}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {weatherData.map((data, index) => (
+            <CarouselItem
+              key={index}
+              className="pl-2 md:pl-4 basis-1/3 md:basis-1/4 lg:basis-1/5"
+            >
+              <div className="p-1">
+                <WeatherCard data={data} />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="flex justify-center mt-4">
+          <CarouselPrevious className="relative right-4" />
+          <CarouselNext className="relative left-4" />
+        </div>
+      </Carousel>
+    </div>
+  );
+};
+
+export default WeatherCarousel;
