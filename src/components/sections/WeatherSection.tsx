@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -10,6 +9,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import React, { useEffect } from 'react';
 
 type WeatherCondition =
   | 'sunrise'
@@ -44,23 +44,23 @@ const WeatherIcon: React.FC<{ condition: WeatherCondition }> = ({
   condition,
 }) => {
   const icons: Record<WeatherCondition, string> = {
-    sunrise: `src/assets/weather-icons/sunrise.png`,
-    sunset: `src/assets/weather-icons/sunset.png`,
-    sunny: `src/assets/weather-icons/sunny.png`,
-    partlySunny: `src/assets/weather-icons/partlySunny.png`,
-    cloudy: `src/assets/weather-icons/cloudy.png`,
-    haze: `src/assets/weather-icons/haze.png`,
-    fog: `src/assets/weather-icons/fog.png`,
-    drizzle: `src/assets/weather-icons/drizzle.png`,
-    rain: `src/assets/weather-icons/rain.png`,
-    heavyRain: `src/assets/weather-icons/heavyRain.png`,
-    thunderBolt: `src/assets/weather-icons/thunderBolt.png`,
-    snow: `src/assets/weather-icons/snow.png`,
-    scatteredSnow: `src/assets/weather-icons/scatteredSnow.png`,
-    sleet: `src/assets/weather-icons/sleet.png`,
-    clearNight: `src/assets/weather-icons/clearNight.png`,
-    partlyCloudyNight: `src/assets/weather-icons/partlyCloudyNight.png`,
-    nightDrizzle: `src/assets/weather-icons/nightDrizzle.png`,
+    sunrise: `/weather-icons/sunrise.png`,
+    sunset: `/weather-icons/sunset.png`,
+    sunny: `/weather-icons/sunny.png`,
+    partlySunny: `/weather-icons/partlySunny.png`,
+    cloudy: `/weather-icons/cloudy.png`,
+    haze: `/weather-icons/haze.png`,
+    fog: `/weather-icons/fog.png`,
+    drizzle: `/weather-icons/drizzle.png`,
+    rain: `/weather-icons/rain.png`,
+    heavyRain: `/weather-icons/heavyRain.png`,
+    thunderBolt: `/weather-icons/thunderBolt.png`,
+    snow: `/weather-icons/snow.png`,
+    scatteredSnow: `/weather-icons/scatteredSnow.png`,
+    sleet: `/weather-icons/sleet.png`,
+    clearNight: `/weather-icons/clearNight.png`,
+    partlyCloudyNight: `/weather-icons/partlyCloudyNight.png`,
+    nightDrizzle: `/weather-icons/nightDrizzle.png`,
   };
 
   return (
