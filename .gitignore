@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 
 *.tsbuildinfo
+
+# Exceptuar el archivo de ejemplo
+!env.example
+
+# Ignorar todos los archivos .env
+.env
+.env.*
+

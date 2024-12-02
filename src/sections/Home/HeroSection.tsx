@@ -1,4 +1,6 @@
+import { useEventStore } from '@/store/eventStore';
 import { ChevronDown } from 'lucide-react';
+import React from 'react';
 
 export const HeroSection = ({
   scrollToNextSection,
@@ -7,6 +9,11 @@ export const HeroSection = ({
   scrollToNextSection: () => void;
   refChevronSection: React.RefObject<HTMLButtonElement>;
 }) => {
+  // TODO: Hanlde multiple images
+  const eventBackgroundImg = useEventStore(
+    (state) => state.heroSectionImages[0]
+  );
+
   return (
     <section
       id="hero-section"
@@ -15,7 +22,7 @@ export const HeroSection = ({
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('/hero.jpg')` }}
+        style={{ backgroundImage: `url(${eventBackgroundImg})` }}
       ></div>
       <button
         ref={refChevronSection}

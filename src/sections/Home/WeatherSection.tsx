@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import { useEventStore } from '@/store/eventStore';
 import React, { useEffect } from 'react';
 
 type WeatherCondition =
@@ -86,9 +87,9 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
   );
 };
 
-export const WeatherCarousel: React.FC<{ weatherData: WeatherData[] }> = ({
-  weatherData,
-}) => {
+export const WeatherCarousel: React.FC = () => {
+  const weatherData = useEventStore((state) => state.expectedTemperature);
+
   const [api, setApi] = React.useState<CarouselApi>();
   const initialSlide = 19 % weatherData.length;
 

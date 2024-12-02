@@ -1,74 +1,76 @@
-import { useState, useEffect } from 'react';
-import { X, Plus, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { X, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { createAttendees } from '@/services/attendeesService';
+import { SpotifySearch } from './SpotifySearch';
+import { useSubdomainEvent } from '@/hooks/useSubdomain';
+import { useEventStore } from '@/store/eventStore';
+import { uiState } from '@/store/uiState';
 
-interface Attendee {
+export interface Attendee {
   name: string;
-  foodIntolerances: string;
-  allergies: string;
-  usesBusService: boolean;
+  intolerancesAndAllergies: string;
+  useBusService: boolean;
+  selectedTracks: string[];
+  weddingId: string | null;
 }
 
 interface Song {
   id: string;
   name: string;
   artist: string;
+  album: string;
+  image: string;
+  previewUrl: string;
 }
 
-export default function ConfirmationForm({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+export default function ConfirmationForm() {
+  const { loading, error } = useSubdomainEvent();
+  const setShowAttendeeModal = uiState((state) => state.setShowAttendeeModal);
+
+  const eventId = useEventStore((state) => state._id);
+
   const [attendees, setAttendees] = useState<Attendee[]>([
-    { name: '', foodIntolerances: '', allergies: '', usesBusService: false },
+    {
+      name: '',
+      intolerancesAndAllergies: '',
+      useBusService: false,
+      selectedTracks: [],
+      weddingId: null,
+    },
   ]);
   const [songs, setSongs] = useState<Song[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Song[]>([]);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [showErrorCallout, setShowErrorCallout] = useState(false);
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
-
-  useEffect(() => {
-    if (searchQuery) {
-      // Simular búsqueda en Spotify (reemplazar con API real)
-      const fakeResults = [
-        { id: '1', name: 'Canción 1', artist: 'Artista 1' },
-        { id: '2', name: 'Canción 2', artist: 'Artista 2' },
-        { id: '3', name: 'Canción 3', artist: 'Artista 3' },
-        { id: '4', name: 'Canción 4', artist: 'Artista 4' },
-        { id: '5', name: 'Canción 5', artist: 'Artista 5' },
-      ];
-      setSearchResults(fakeResults);
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
 
   const addAttendee = () => {
-    if (attendees.length < 5) {
+    if (attendees.length < 5 && eventId) {
       setAttendees([
         ...attendees,
         {
           name: '',
-          foodIntolerances: '',
-          allergies: '',
-          usesBusService: false,
+          intolerancesAndAllergies: '',
+          useBusService: false,
+          selectedTracks: [],
+          weddingId: eventId,
         },
       ]);
     }
   };
+
+  useEffect(() => {
+    if (eventId) {
+      setAttendees((prevAttendees) => [
+        {
+          ...prevAttendees[0],
+          weddingId: eventId,
+        },
+      ]);
+    }
+  }, [eventId]);
 
   const removeAttendee = (index: number) => {
     const newAttendees = attendees.filter((_, i) => i !== index);
@@ -86,10 +88,8 @@ export default function ConfirmationForm({
   };
 
   const addSong = (song: Song) => {
-    if (songs.length < 5) {
+    if (songs.length < 5 && !songs.some((s) => s.id === song.id)) {
       setSongs([...songs, song]);
-      setSearchQuery('');
-      setSearchResults([]);
     }
   };
 
@@ -97,7 +97,7 @@ export default function ConfirmationForm({
     setSongs(songs.filter((song) => song.id !== id));
   };
 
-  const handleConfirmAttendance = () => {
+  const handleConfirmAttendance = async () => {
     setIsFormSubmitted(true);
     const allNamesFilledOut = attendees.every(
       (attendee) => attendee.name.trim() !== ''
@@ -106,14 +106,19 @@ export default function ConfirmationForm({
       setShowErrorCallout(true);
       return;
     }
-    // Aquí iría la lógica para enviar la confirmación
-    console.log('Confirmación enviada', attendees, songs);
+    const songIds = songs.map((song) => song.id); // Solo necesitamos los IDs
+    console.log('Confirmación enviada', attendees, songIds);
+    attendees[0].selectedTracks = songIds;
+    await createAttendees(attendees);
+    setShowAttendeeModal();
   };
 
   const areAllNamesFilled = () =>
     attendees.every((attendee) => attendee.name.trim() !== '');
 
-  if (!isOpen) return null;
+  if (loading) return <div>Cargando información del evento...</div>;
+  if (error) return <div>Error al cargar datos: {error}</div>;
+  if (!eventId) return <div>No se encontró el ID del evento.</div>;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start p-2 md:p-4 overflow-y-auto h-screen ">
@@ -123,7 +128,11 @@ export default function ConfirmationForm({
             <h2 className="text-2xl font-bold text-gray-800">
               Confirmar Asistencia
             </h2>
-            <Button variant="ghost" className="w-max" onClick={onClose}>
+            <Button
+              variant="ghost"
+              className="w-max"
+              onClick={setShowAttendeeModal}
+            >
               <X className="size-5" />
             </Button>
           </header>
@@ -155,29 +164,25 @@ export default function ConfirmationForm({
                   required
                 />
                 <Textarea
-                  placeholder="Intolerancias Alimenticias"
-                  value={attendee.foodIntolerances}
+                  placeholder="Intolerancias Alimenticias (opcional)"
+                  value={attendee.intolerancesAndAllergies}
                   onChange={(e) =>
-                    updateAttendee(index, 'foodIntolerances', e.target.value)
-                  }
-                  className="mb-2"
-                />
-                <Textarea
-                  placeholder="Alergias"
-                  value={attendee.allergies}
-                  onChange={(e) =>
-                    updateAttendee(index, 'allergies', e.target.value)
+                    updateAttendee(
+                      index,
+                      'intolerancesAndAllergies',
+                      e.target.value
+                    )
                   }
                   className="mb-2"
                 />
                 <div className="flex items-center">
                   <Switch
-                    checked={attendee.usesBusService}
+                    checked={attendee.useBusService}
                     onCheckedChange={(checked) =>
-                      updateAttendee(index, 'usesBusService', checked)
+                      updateAttendee(index, 'useBusService', checked)
                     }
                     className={
-                      attendee.usesBusService
+                      attendee.useBusService
                         ? 'data-[state=checked]:bg-[#17B169]'
                         : 'data-[state=unchecked]:bg-[#fd5c63]'
                     }
@@ -211,9 +216,16 @@ export default function ConfirmationForm({
                       key={song.id}
                       className="flex justify-between items-center bg-gray-100 p-2 rounded mb-2"
                     >
-                      <span>
-                        {song.name} - {song.artist}
-                      </span>
+                      <div className="flex items-center">
+                        <img
+                          src={song.image}
+                          alt={song.name}
+                          className="w-10 h-10 mr-4 object-cover"
+                        />
+                        <span>
+                          {song.name} - {song.artist}
+                        </span>
+                      </div>
                       <Button
                         variant="ghost"
                         onClick={() => removeSong(song.id)}
@@ -225,32 +237,8 @@ export default function ConfirmationForm({
                 </div>
               )}
 
-              <div className="relative">
-                <Input
-                  placeholder="Buscar canción..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              </div>
-              {searchResults.length > 0 && (
-                <ul className="mt-2 bg-white border border-gray-200 rounded-md shadow-sm">
-                  {searchResults.slice(0, 5).map((song) => (
-                    <li
-                      key={song.id}
-                      className="flex justify-between items-center p-2 hover:bg-gray-100"
-                    >
-                      <span>
-                        {song.name} - {song.artist}
-                      </span>
-                      <Button variant="ghost" onClick={() => addSong(song)}>
-                        Añadir
-                      </Button>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {/* Integración del componente de búsqueda */}
+              <SpotifySearch onSongSelect={addSong} />
             </div>
             {showErrorCallout && !areAllNamesFilled() && (
               <div

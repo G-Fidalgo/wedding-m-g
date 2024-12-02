@@ -1,12 +1,39 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEventStore } from '@/store/eventStore';
+import React, { useEffect, useState } from 'react';
 
 export const CountdownSection = ({
-  countdown,
   refCountDownSection,
 }: {
-  countdown: any;
   refCountDownSection: React.RefObject<HTMLDivElement>;
 }) => {
+  const eventDate = useEventStore((state) => state.eventDateTime);
+
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    if (!eventDate) {
+      return;
+    }
+    const timer = setInterval(() => {
+      const now = new Date();
+      const difference = new Date(eventDate).getTime() - now.getTime();
+      setCountdown({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [eventDate]);
+
   return (
     <section className="py-16 px-4 bg-white">
       <div className="container mx-auto text-center" ref={refCountDownSection}>
