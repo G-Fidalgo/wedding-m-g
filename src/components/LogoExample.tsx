@@ -9,7 +9,7 @@ export const LogoExample = () => {
     return (
       <div className="flex gap-2">
         <div
-          className="w-28 h-28 relative bg-contain bg-center bg-no-repeat"
+          className="w-20 h-20 relative bg-contain bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${logoImage})` }}
         ></div>
       </div>
@@ -17,11 +17,11 @@ export const LogoExample = () => {
   }
   return (
     <div className="flex gap-2">
-      <div className="flex items-center text-black">
+      <div className="flex items-center text-white">
         <span className="block border-2 border-current size-7 rounded-full" />
         <span className="block border-2 border-current size-7 rounded-full -ml-3" />
       </div>
-      <p className="border-l font-bold border-black pl-2">{weddingName}</p>
+      <p className="border-l font-bold border-white pl-2">{weddingName}</p>
     </div>
   );
 };
