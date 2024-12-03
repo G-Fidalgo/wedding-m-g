@@ -19,7 +19,7 @@ export const HeaderComponent = ({ isSticky }: { isSticky: boolean }) => {
       }`}
     >
       <div className="container mx-auto py-4 px-4 sm:px-6 flex justify-between items-center">
-        <LogoExample />
+        <LogoExample isSticky={isSticky} />
         {location.pathname === '/gifts' ? (
           <Link
             to="/"
