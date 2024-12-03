@@ -26,7 +26,7 @@ export const LogoExample = ({ isSticky }: { isSticky: boolean }) => {
         <span className="block border-2 border-current size-7 rounded-full -ml-3" />
       </div>
       <p
-        className={`border-l font-bold  pl-2 text-white ${
+        className={`border-l font-bold  pl-2 ${
           isSticky ? 'text-black border-black' : 'text-white border-white'
         }`}
       >
